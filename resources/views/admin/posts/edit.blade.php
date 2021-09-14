@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form action="{{ route('admin.posts.store') }}" method="post">
+        <form action="" method="post">
             <div class="mb-3">
                 <label for="titolo" class="form-label">Titolo</label>
                 <input type="text" class="form-control" id="titolo" name="title">

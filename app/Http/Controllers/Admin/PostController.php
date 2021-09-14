@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str
 use App\Post;
 
 class PostController extends Controller
@@ -27,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -38,7 +38,16 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //prendere i dati
+        $data = $request -> all();
+        //creare la nuova istanza con i dati ottenuti dalla request
+        $new_post = new Post();
+        $new_post->fill($data);
+        $new_post->slug = Str::slug($data['title'], '-');
+        //salvare i dati
+        $new_post->save();
+
+        return redirect()->route('admin.posts.index')
     }
 
     /**
@@ -47,9 +56,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return view('admin.posts.show', compact('post'))
     }
 
     /**
