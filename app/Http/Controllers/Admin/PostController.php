@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str
+use Illuminate\Support\Str;
 use App\Post;
 
 class PostController extends Controller
@@ -39,8 +39,8 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //validazione dei dati
-        $request->([
-            'title' => 'required|max:60'
+        $request->validate([
+            'title' => 'required|max:60',
             'content' => 'required'
         ]);
         //prendere i dati
@@ -50,7 +50,7 @@ class PostController extends Controller
 
         $slug = Str::slug($data['title'], '-');
 
-        $slug_base = $slug
+        $slug_base = $slug;
         $slug_presente = Post::where('slug', $slug)->first();
 
         $count = 1;
@@ -67,7 +67,7 @@ class PostController extends Controller
 
         $new_post->save();
 
-        return redirect()->route('admin.posts.index')
+        return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -79,7 +79,7 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::where('slug', $slug)->first();
-        return view('admin.posts.show', compact('post'))
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -90,7 +90,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'))
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -102,8 +102,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $request->([
-            'title' => 'required|max:60'
+        $request->validate([
+            'title' => 'required|max:60',
             'content' => 'required'
         ]);
 
